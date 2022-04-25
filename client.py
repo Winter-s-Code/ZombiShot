@@ -164,6 +164,55 @@ createImg(r'assets\images\weapon.gif', 770, 700)
 
 
 
+zombObj = {
+            '1':{
+                'typename':'easy',
+                'velocity': 1,
+                'dmg': 1,
+                'points': 1,
+                'image': r'assets\images\ezomb.gif'
+                },
+            '2':{
+                'typename':'medium',
+                'velocity': 2,
+                'dmg': 2,
+                'points': 3,
+                'image': r'assets\images\mzomb.gif'
+                },
+            '3':{
+                'typename':'hard',
+                'velocity': 3,
+                'dmg': 3,
+                'points': 5,
+                'image': r'assets\images\hzomb.gif'
+                }
+            }
+
+
+
+#All zombies live inside this object
+global zombID
+zombID = {}
+
+
+#Create zombies
+def addZomb(x, y, type):
+    if(isinstance(type, int)):
+        typeC = str(type)
+    else:
+        typeC = type
+    zo = zombObj[typeC]
+    zombImgPath = get_path(zo['image'])
+    global zombPI
+    zombPI = PhotoImage(file=zombImgPath)
+    gameCanvas.create_image(x, y, image=zombPI)
+    print(zo, zombImgPath,zombPI, x, y )
+
+addZomb(150,150,2)
+
+
+
+
 gameCanvas.bind('<Motion>', move)
 gameCanvas.bind('<Button-1>', shot)
 gameCanvas.bind('<ButtonPress-1>', multiShot)
